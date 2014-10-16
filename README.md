@@ -1,27 +1,15 @@
-# generator-html-parser [![Build Status](https://secure.travis-ci.org/bitliner/generator-html-parser.png?branch=master)](https://travis-ci.org/bitliner/generator-html-parser)
+# generator-html-parser 
 
 A generator for [Yeoman](http://yeoman.io).
+
+It generates the basic structure to build an html parser in node.js . 
 
 
 ## Getting Started
 
-### What is Yeoman?
 
-Trick question. It's not a thing. It's this guy:
 
-![](http://i.imgur.com/JHaAlBJ.png)
-
-Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
-
-Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*
-
-```
-$ npm install -g yo
-```
-
-### Yeoman Generators
-
-Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
+### How to install it
 
 To install generator-html-parser from npm, run:
 
@@ -29,17 +17,27 @@ To install generator-html-parser from npm, run:
 $ npm install -g generator-html-parser
 ```
 
-Finally, initiate the generator:
 
-```
-$ yo html-parser
-```
+### How to use it
 
-### Getting To Know Yeoman
+1. `mkdir facebook-html-parser && cd $_`
+2. `yo html-parser`
 
-Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.
+That's it!
 
-If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
+The generator will generate a node-js module to parse html and a test case to prove how it works. Just run  `npm test` and have a look at *test/test.js* file content.
+
+The generated code contains simple code to parse the file *test/data/page.html*.
+
+
+### How to customize it to parse any html string you need
+
+The main file is `<site-name>-html-parser.js`.
+
+It contains two methods
+
+1. `parse(html,url)`: it receives as input the html (string) to parse and an url (string), useful if you need to resolve some relative url with the node module *Url* (already imported)
+2. `getNextPages(html,url)`:  to get the urls of next pages to surf. Usually useful when you are scraping a list of pages. Still, it takes as input the html (string) to parse, and the url (string) to resolve eventually urls extracted from the html.
 
 
 ## License
