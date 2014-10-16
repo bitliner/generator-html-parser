@@ -39,6 +39,24 @@ It contains two methods
 1. `parse(html,url)`: it receives as input the html (string) to parse and an url (string), useful if you need to resolve some relative url with the node module *Url* (already imported)
 2. `getNextPages(html,url)`:  to get the urls of next pages to surf. Usually useful when you are scraping a list of pages. Still, it takes as input the html (string) to parse, and the url (string) to resolve eventually urls extracted from the html.
 
+### Details of implementation
+
+It is based on [cheerio](https://www.npmjs.org/package/cheerio) to parse the html.
+
+Cheerio is like jQuery, but faster.
+
+
+
+```
+$ = cheerio.load(html);
+
+$('.item').each(function() {
+    var el=$(this);
+	result.push(el.text());
+})
+
+``` 
+
 
 ## License
 
