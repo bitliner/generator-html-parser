@@ -2,7 +2,9 @@
 
 A generator for [Yeoman](http://yeoman.io).
 
-It generates the basic structure to build an html parser in node.js . 
+It generates the basic structure of an html parser in node.js.
+
+Useful if you are doing scraping with node.js. 
 
 
 ## Getting Started
