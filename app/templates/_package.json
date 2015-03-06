@@ -1,7 +1,7 @@
 {
-    "name": "<%= htmlParserName %>",
+    "name": "<%= htmlParserName %>-html-parser",
     "version": "0.0.0",
-    "main":"<%= htmlParserName %>.js",
+    "main":"<%= htmlParserName %>-html-parser.js",
     "scripts": {
         "test": "mocha"
     },
