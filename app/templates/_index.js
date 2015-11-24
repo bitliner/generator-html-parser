@@ -16,7 +16,7 @@ var DomainUtils = require('@bitliner/domain-utils'),
  * The url is useful to resolve relative urls embedded in the page using the UrlResolver 
  */
 module.exports.parse = function(html, url) {
-	var $, result;
+	var $, result, tmp;
 
 
 
@@ -52,7 +52,7 @@ module.exports.parse = function(html, url) {
 			title: null,
 			channel: DomainUtils.getHostName(url),
 			language: DomainUtils.getLanguageByUrl(url),
-			country: DomainUtils.getCountryBy(url),
+			country: DomainUtils.getCountryByUrl(url),
 		};
 
 		$('', $el);
