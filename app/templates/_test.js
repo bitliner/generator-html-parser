@@ -21,27 +21,35 @@ describe('Testiing <%= htmlParserName %>-html-parser', function() {
 
 		var url = '';
 
-		var expectedNumberOfReviews=null;
+		var expectedNumberOfReviews = null;
+		var expectedAuthorName = 'Scott';
 
-		var expectedAuthorName = '';
-		var expectedAuthorLocation = null;
-		var expectedAuthorLink = null;
-		var expectedAuthorAge = null;
-		var expectedRatingValue = null;
-		var expectedRatingTotal = null;
-		var expectedHelpfulnessPositiveVotes=null;
-		var expectedHelpfulnessTotal=null;		
-		var expectedPubDate = new Date();
-		var expectedHtmlStart = '';
-		var expectedHtmlEnd = '';
-		var expectedLinkToSingleReview = null;
-		var expectedLinkToSingleProduct = null;
-		var expectedLink = url;
-		var expectedSubtitle = '';
-		var expectedTitle = '';
-		var expectedChannel = '<%= htmlParserName %>';
-		var expectedCountry = '';
-		var expectedLanguage = '';
+		var expectedFields = {
+			rating: {
+				best: 5,
+				value: null
+			},
+			pubDate: new Date(null),
+			pros: null,
+			cons: null,
+			html: null,
+			linkToSingleReview: null,
+			authorName: null,
+			authorLink: null,
+			authorAge: null,
+			authorLocation: null,
+			helpfulness: {
+				positiveVotes: null,
+				total: null
+			},
+			link: url,
+			linkToProductPage: url,
+			subtitle: null,
+			title: null,
+			channel: null,
+			language: null,
+			country: null
+		};
 
 
 		htmlContent = fs.readFileSync(path.resolve(__dirname, './data/page.html'), {
@@ -55,31 +63,13 @@ describe('Testiing <%= htmlParserName %>-html-parser', function() {
 		review = result.filter(function(r) {
 			return r.authorName === expectedAuthorName;
 		});
-		review=review[0];
+		expect(review.length).to.be.eql(1);
 
-		expect(review.authorAge).to.be.eql(expectedAuthorAge);
-		expect(review.authorLocation).to.be.eql(expectedAuthorLocation);
-		expect(review.authorLink).to.be.eql(expectedAuthorLink);
-		expect(review.rating.value).to.be.eql(expectedRatingValue);
-		expect(review.rating.total).to.be.eql(expectedRatingTotal);
-		expect(review.helpfullness.positiveVotes).to.be.eql(expectedHelpfulnessPositiveVotes);
-		expect(review.helpfullness.total).to.be.eql(expectedHelpfulnessTotal);
-		expect(review.pubDate.getDate()).to.be.eql(expectedPubDate.getDate());
-		expect(review.pubDate.getMonth()).to.be.eql(expectedPubDate.getMonth());
-		expect(review.pubDate.getFullYear()).to.be.eql(expectedPubDate.getFullYear());
+		review = review[0];
 
-		expect(review.html.substr(0, 20)).to.be.eql(expectedHtmlStart.substr(0, 20));
-		expect(review.html.substr(review.html.length - 20, review.html.length)).to.be.eql(expectedHtmlEnd.substr(expectedHtmlEnd.length - 20, expectedHtmlEnd.length));
-		expect(review.linkToSingleReview).to.be.eql(expectedLinkToSingleReview);
-		expect(review.linkToSingleProduct).to.be.eql(expectedLinkToSingleProduct);
-		expect(review.linkToProductPage).to.be.eql(expectedLinkToSingleProduct);
-		expect(review.link).to.be.eql(expectedLink);
-
-		expect(review.subtitle).to.be.eql(expectedSubtitle);
-		expect(review.title).to.be.eql(expectedTitle);
-		expect(review.channel).to.be.eql(expectedChannel);
-		expect(review.language).to.be.eql(expectedLanguage);
-		expect(review.country).to.be.eql(expectedCountry);
+		Object.keys(expectedFields).forEach(function(fieldName) {
+			expect(review[fieldName]).to.be.eql(expectedFields[fieldName]);
+		});
 
 	});
 
