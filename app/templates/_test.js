@@ -16,19 +16,23 @@ describe('<%= htmlParserName %>-html-parser', function() {
     });
 
     describe('parse()', function() {
-        it('should work fine on each input', function() {
-            TestConf.forEach(function(configuration) {
-                let result;
+        TestConf.forEach(function(configuration, index) {
+            describe('when is ' + index + '-th configuration (index starts from 0)', function() {
+                it('should work fine', function() {
+                    let result;
 
-                result =
-                    HtmlParserTester
-                    .testByParserAndTestConfiguration(parser, configuration);
+                    result =
+                        HtmlParserTester
+                        .testByParserAndTestConfiguration(
+                            parser,
+                            configuration
+                        );
 
-                expect(result).to.be.eql(true);
+                    expect(result).to.be.eql(true);
+                });
             });
         });
     });
-
 
     // it('getNextPages() should extract...', function() {
     //     let htmlContent, nextPages;
