@@ -27,11 +27,10 @@ HtmlParserGenerator.prototype.askFor = function askFor() {
         type: 'input',
         name: 'htmlParserName',
         message: 'What\'s the name of the site you want to parse?',
-        default: 'facebook'
+        default: 'facebook',
     }];
 
     this.prompt(prompts, function(props) {
-
         this.htmlParserName = props.htmlParserName;
 
         cb();
