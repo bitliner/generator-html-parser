@@ -43,6 +43,7 @@ HtmlParserGenerator.prototype.app = function app() {
     this.mkdir('test/data');
 
     this.copy('_package.json', 'package.json');
+    this.copy('makefile', 'makefile');
     this.copy('.eslintrc.js', '.eslintrc.js');
     this.copy('page.html', 'test/data/page.html');
     this.copy('_test.js', 'test/test.js');
