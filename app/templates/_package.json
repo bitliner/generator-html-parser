@@ -6,8 +6,7 @@
         "test": "cd test && mocha ./"
     },
     "dependencies": {
-        "cheerio": "*",
-        "@bitliner/parser-api": "*"
+        "cheerio": "*"
     },
     "devDependencies": {
         "chai": "~1.9.1",
