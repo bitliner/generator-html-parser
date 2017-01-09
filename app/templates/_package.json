@@ -1,18 +1,19 @@
 {
-    "name": "@bitliner/<%= htmlParserName %>-html-parser",
+    "name": "@bitliner/html-parser-<%= htmlParserName %>",
     "version": "0.0.0",
-    "main": "<%= htmlParserName %>-html-parser.js",
+    "main": "html-parser-<%= htmlParserName %>.js",
     "scripts": {
-        "test": "mocha"
+        "test": "cd test && mocha ./"
     },
     "dependencies": {
         "cheerio": "*",
-        "@bitliner/date-parser": "*",
-        "@bitliner/domain-utils": "*",
-        "@bitliner/interval-parser": "*"
+        "@bitliner/parser-api": "*"
     },
     "devDependencies": {
         "chai": "~1.9.1",
-        "request": "~2.40.0"
+        "request": "~2.40.0",
+        "mocha": "*",
+        "@bitliner/html-parser-test": "*",
+        "@bitliner/parser-api": "*"
     }
 }

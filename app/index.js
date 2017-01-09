@@ -1,28 +1,14 @@
 'use strict';
-var util = require('util');
-var path = require('path');
-var yeoman = require('yeoman-generator');
+let util = require('util');
+let path = require('path');
+let yeoman = require('yeoman-generator');
 
-
-var extractGeneratorName = function(_, appname) {
-    var slugged = _.slugify(appname);
-    var match = slugged.match(/^generator-(.+)/);
-
-    if (match && match.length === 2) {
-        return match[1].toLowerCase();
-    }
-
-    return slugged;
-};
-
-
-
-var HtmlParserGenerator = module.exports = function HtmlParserGenerator(args, options, config) {
+function HtmlParserGenerator(args, options) {
     yeoman.generators.Base.apply(this, arguments);
 
     this.on('end', function() {
         this.installDependencies({
-            skipInstall: options['skip-install']
+            skipInstall: options['skip-install'],
         });
     });
 
@@ -32,14 +18,13 @@ var HtmlParserGenerator = module.exports = function HtmlParserGenerator(args, op
 util.inherits(HtmlParserGenerator, yeoman.generators.Base);
 
 HtmlParserGenerator.prototype.askFor = function askFor() {
-    var cb = this.async();
-    var htmlParserName = extractGeneratorName(this._, this.appname);
+    let cb = this.async();
 
     // have Yeoman greet the user.
     console.log(this.yeoman);
 
-    var prompts = [{
-        type:'input',
+    let prompts = [{
+        type: 'input',
         name: 'htmlParserName',
         message: 'What\'s the name of the site you want to parse?',
         default: 'facebook'
@@ -47,8 +32,8 @@ HtmlParserGenerator.prototype.askFor = function askFor() {
 
     this.prompt(prompts, function(props) {
 
-        this.htmlParserName=props.htmlParserName;
-        
+        this.htmlParserName = props.htmlParserName;
+
         cb();
     }.bind(this));
 };
@@ -59,13 +44,12 @@ HtmlParserGenerator.prototype.app = function app() {
     this.mkdir('test/data');
 
     this.copy('_package.json', 'package.json');
+    this.copy('.eslintrc.js', '.eslintrc.js');
     this.copy('page.html', 'test/data/page.html');
     this.copy('_test.js', 'test/test.js');
-    console.log('-->',this.htmlParserName);
-    this.copy('_index.js',this.htmlParserName+'-html-parser.js')
+    this.copy('_test.conf.js', 'test/test.conf.js');
+    // console.log('-->', this.htmlParserName);
+    this.copy('_index.js', 'html-parser-' + this.htmlParserName + '.js')
 };
 
-// HtmlParserGenerator.prototype.projectfiles = function projectfiles() {
-//     this.copy('editorconfig', '.editorconfig');
-//     this.copy('jshintrc', '.jshintrc');
-// };
+module.exports = HtmlParserGenerator;

@@ -18,13 +18,16 @@
     "url": "git://github.com/bitliner/generator-html-parser.git"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "preinstall": "npm i -g yo"
   },
   "dependencies": {
     "yeoman-generator": "^0.14.2",
     "yo": "^1.5.0"
   },
   "devDependencies": {
+    "eslint": "^3.13.0",
+    "eslint-config-google": "^0.7.1",
     "mocha": "~1.14.0"
   },
   "peerDependencies": {

@@ -1,96 +1,47 @@
-/* globals describe, it */
-/* jshint node:true */
+/* eslint-env mocha */
 'use strict';
 
-var expect = require('chai').expect,
-	path = require('path');
+let expect = require('chai').expect;
+let Parser = require('../');
+let HtmlParserTester = require('@bitliner/html-parser-test');
+let TestConf = require('./test.conf');
 
-var fs = require('fs'),
-	path = require('path');
+describe('<%= htmlParserName %>-html-parser', function() {
+    let parser;
 
-var Parser = require('../<%= htmlParserName %>-html-parser.js');
+    beforeEach(function() {
+        parser = new Parser({
+            api: require('@bitliner/parser-api'),
+        });
+    });
 
+    describe('parse()', function() {
+        it('should work fine on each input', function() {
+            TestConf.forEach(function(configuration) {
+                let result;
 
-describe('Testiing <%= htmlParserName %>-html-parser', function() {
+                result =
+                    HtmlParserTester
+                    .testByParserAndTestConfiguration(parser, configuration);
 
-
-
-	it('parse() should extract...', function() {
-
-		var htmlContent, result, review;
-
-		var url = '';
-
-		var expectedNumberOfReviews = null;
-		var expectedAuthorName = 'Scott';
-
-		var expectedFields = {
-			rating: {
-				best: 5,
-				value: null
-			},
-			pubDate: new Date(null),
-			pros: null,
-			cons: null,
-			html: null,
-			linkToSingleReview: null,
-			authorName: null,
-			authorLink: null,
-			authorAge: null,
-			authorLocation: null,
-			helpfulness: {
-				positiveVotes: null,
-				total: null
-			},
-			link: url,
-			linkToProductPage: url,
-			subtitle: null,
-			title: null,
-			channel: null,
-			language: null,
-			country: null
-		};
+                expect(result).to.be.eql(true);
+            });
+        });
+    });
 
 
-		htmlContent = fs.readFileSync(path.resolve(__dirname, './data/page.html'), {
-			encoding: 'utf-8'
-		});
+    // it('getNextPages() should extract...', function() {
+    //     let htmlContent, nextPages;
+    //     let url, expectedNextLink;
+    //     url = '';
+    //     expectedNextLink = '';
+    //     htmlContent =
+    //     fs.readFileSync(path.resolve(__dirname, './data/page.html'), {
+    //         encoding: 'utf-8'
+    //     });
+    //     nextPages = Parser.getNextPages(htmlContent, url);
 
-		result = Parser.parse(htmlContent, url);
-
-		expect(result).to.have.length(expectedNumberOfReviews);
-
-		review = result.filter(function(r) {
-			return r.authorName === expectedAuthorName;
-		});
-		expect(review.length).to.be.eql(1);
-
-		review = review[0];
-
-		Object.keys(expectedFields).forEach(function(fieldName) {
-			expect(review[fieldName]).to.be.eql(expectedFields[fieldName]);
-		});
-
-	});
-
-	it('getNextPages() should extract...', function() {
-
-		var htmlContent, nextPages;
-		var url, expectedNextLink;
-
-
-		url = '';
-		expectedNextLink = '';
-
-
-		htmlContent = fs.readFileSync(path.resolve(__dirname, './data/page.html'), {
-			encoding: 'utf-8'
-		});
-		nextPages = Parser.getNextPages(htmlContent, url);
-
-		expect(nextPages).to.have.length(1);
-		expect(nextPages).to.include(expectedNextLink);
-
-	});
-
+    //     expect(nextPages).to.have.length(1);
+    //     expect(nextPages).to.include(expectedNextLink);
+    // });
 });
