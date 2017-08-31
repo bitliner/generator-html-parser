@@ -16,8 +16,6 @@
         "@bitliner/domain-utils": "*",
         "@bitliner/interval-parser": "*",
         "@bitliner/date-parser": "*",
-        "web-auto-extractor": "1.0.16",
+        "web-auto-extractor": "1.0.16"
     }
-
-    const wae = require('web-auto-extractor').default;
 }
