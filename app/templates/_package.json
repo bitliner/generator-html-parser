@@ -12,6 +12,7 @@
         "chai": "~1.9.1",
         "request": "~2.40.0",
         "mocha": "*",
+        "web-auto-extractor": "1.0.16",
         "@bitliner/html-parser-test": "*",
         "@bitliner/parser-api": "*"
     }
