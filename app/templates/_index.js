@@ -1,74 +1,72 @@
 /* jshint node:true */
 'use strict';
 
-let cheerio = require('cheerio');
+const cheerio = require('cheerio');
+const DomainUtils = require('@bitliner/domain-utils');
+const IntervalParser = require('@bitliner/interval-parser');
+const DateParser = require('@bitliner/date-parser');
+const wae = require('web-auto-extractor').default;
 
 /**
  * [exports description]
  * @type {[type]}
  */
 module.exports = class {
-    constructor(opts) {
-        this.api = opts.api;
-    }
-    parse(html, url) {
-        let $;
-        let result;
+  constructor(opts) {}
+  parse(html, url) {
+    // var parsed = WAE().parse(sampleHTML)
 
-        $ = cheerio.load(html);
-        result = [];
+    const $ = cheerio.load(html);
+    let result = [];
 
-        // here select the html elements and process them
-        $('.item').each((i, $el) => {
-            let review = {
-                rating: {
-                    value: null,
-                    best: 5,
-                },
-                pubDate: null,
-                pros: null,
-                cons: null,
-                html: null,
-                linkToSingleReview: null,
-                authorName: null,
-                authorLink: null,
-                authorGender: null,
-                authorAge: null,
-                authorLocation: null,
-                helpfulness: {
-                    positiveVotes: null,
-                    total: null,
-                },
-                link: null,
-                linkToProductPage: null,
-                subtitle: null,
-                title: null,
-                channel: this.api.DomainUtils.getHostName(url),
-                language: this.api.DomainUtils.getLanguageByUrl(url),
-                country: this.api.DomainUtils.getCountryByUrl(url),
-            };
+    // using WAE, if WAE does not extract anything, remove this part to make it fully CSS selectors (cheerio)
+    const microdata = wae().parse(html).microdata;
+    const title = microdata.Product[0].name;
+    const reviews = microdata.Product[0].review;
 
-            // $('', $el);
+    // using WAE mixed with CSS selectors (cheerio)
+    $('.container-selector').each((i, $el) => {
+      let r = reviews[i];
 
-            result.push(review);
-        });
+      // review
+      let review = {
+        rating: {
+          value: IntervalParser.get(r.reviewRating.ratingValue).part, // convert to range [1,5] if different range
+          total: 5,
+        },
+        pubDate: DateParser.get(r.datePublished),
+        pros: null,
+        cons: null,
+        html: r.description,
+        authorName: r.author,
+        authorLocation: $('.author', $el).text().trim() || null,
+        authorAge: $('.age', $el).text().trim() || null,
+        authorLink: $('.link', $el).attr('href') || null,
+        helpfulness: {
+          positiveVotes: parseInt($('.positiveVotes', $el).html()) || null,
+          total: parseInt($('.negativeVotes', $el).html()) + parseInt($('.positiveVotes', $el).html()),
+        },
+        link: url,
+        linkToProductPage: url,
+        linkToSingleReview: url,
+        subtitle: r.name,
+        title: title,
+        channel: DomainUtils.getChannelByUrl(url),
+        language: DomainUtils.getLanguageByUrl(url),
+        country: DomainUtils.getCountryByUrl(url),
+      };
 
-        return result;
-    }
-    getNextPages(html, url) {
-        // let $;
-        // let next;
+      result.push(review);
+    });
 
-        // $ = cheerio.load(html);
+    return result;
+  }
 
-        // // select the next url and resolve it
-        // next = $('a:contains(Next Page)').attr('href');
-        // next = require('url').resolve(url, next);
-
-        // return [next];
-        throw new Error(
-            'This method does not need to be implemented or invoked'
-            );
-    }
-};
+  getNextPages(html, url) {
+    throw new Error(
+      'This method does not need to be implemented or invoked'
+    );
+  }
+}
+;
 
