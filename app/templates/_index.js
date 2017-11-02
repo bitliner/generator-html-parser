@@ -1,5 +1,3 @@
-const {} = require('@bitliner/parsly');
-
 const {list, rating, text, domain, country, language, date, html, cheerio} = require('@bitliner/parsly');
 
 
