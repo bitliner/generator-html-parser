@@ -8,23 +8,23 @@ let TestConf = require('./test.conf');
 
 describe('html-parser-<%= htmlParserName %>', function() {
 
-    describe('parse()', function() {
-        TestConf.forEach(function(configuration, index) {
-            describe('when is ' + index + '-th configuration (index starts from 0)', function() {
-                it('should work fine', function() {
-                    let result;
+  describe('parse()', function() {
+    TestConf.forEach(function(configuration, index) {
+      describe('when is ' + index + '-th configuration (index starts from 0)', function() {
+        it('should work fine', function() {
+          let result;
 
-                    result =
-                        HtmlParserTester
-                        .testByParserAndTestConfiguration(
-                            parser,
-                            configuration
-                        );
+          result =
+          HtmlParserTester
+          .testByParserAndTestConfiguration(
+            parser,
+            configuration
+          );
 
-                    expect(result).to.be.eql(true);
-                });
-            });
+          expect(result).to.be.eql(true);
         });
+      });
     });
+  });
 
 });
