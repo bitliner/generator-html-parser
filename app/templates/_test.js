@@ -6,7 +6,7 @@ let parser = require('../');
 let HtmlParserTester = require('@bitliner/html-parser-test');
 let TestConf = require('./test.conf');
 
-describe('<%= htmlParserName %>-html-parser', function() {
+describe('html-parser-<%= htmlParserName %>', function() {
 
     describe('parse()', function() {
         TestConf.forEach(function(configuration, index) {
