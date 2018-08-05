@@ -1,17 +1,17 @@
 {
-    "name": "@bitliner/html-parser-<%= htmlParserName %>",
-    "version": "0.0.0",
-    "main": "html-parser-<%= htmlParserName %>.js",
-    "scripts": {
-        "test": "cd test && mocha ./"
-    },
-    "dependencies": {
-        "@bitliner/parsly": "^8.0.0",
-        "web-auto-extractor": "1.0.16"
-    },
-    "devDependencies": {
-        "chai": "~1.9.1",
-        "mocha": "*",
-        "@bitliner/html-parser-test": "*"
-    }
+  "name": "@bitliner/html-parser-<%= htmlParserName %>",
+  "version": "0.0.0",
+  "main": "html-parser-<%= htmlParserName %>.js",
+  "scripts": {
+    "test": "cd test && mocha ./"
+  },
+  "dependencies": {
+    "@bitliner/parsly": "^8.0.0",
+    "web-auto-extractor": "1.0.16"
+  },
+  "devDependencies": {
+    "chai": "~1.9.1",
+    "mocha": "*",
+    "@bitliner/html-parser-test": "*"
+  }
 }
